@@ -1,1 +1,842 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AY Digital — AI • Marketing • Growth | Marketing immobilier au Maroc</title>
+<meta name="description" content="AY Digital accompagne les promoteurs, entreprises de construction, agences et vendeurs de terrains au Maroc : marketing immobilier, présentation de projets, génération de prospects et automatisation.">
+<style>
+  :root {
+    --noir: #05070d;
+    --bleu-nuit: #0a1530;
+    --bleu-nuit-2: #0f1f45;
+    --bleu-elec: #1f6bff;
+    --bleu-elec-clair: #4fa3ff;
+    --texte: #e8eefc;
+    --texte-doux: #9fb0d4;
+    --bordure: rgba(79, 163, 255, 0.18);
+    --verre: rgba(15, 31, 69, 0.45);
+    --rayon: 16px;
+    --ombre: 0 20px 60px rgba(31, 107, 255, 0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    background: var(--noir);
+    color: var(--texte);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  img, svg { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, h3 { line-height: 1.2; font-weight: 700; }
+  section { padding: 90px 0; position: relative; }
+  .container { width: min(1180px, 92%); margin: 0 auto; }
+
+  /* ---------- Boutons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 14px 26px; border-radius: 999px; font-weight: 600; font-size: 0.98rem;
+    border: 1px solid transparent; cursor: pointer; transition: all .3s ease;
+    font-family: inherit; text-align: center;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--bleu-elec), var(--bleu-elec-clair));
+    color: #fff; box-shadow: 0 10px 30px rgba(31, 107, 255, .35);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(31, 107, 255, .5); }
+  .btn-outline {
+    background: transparent; color: var(--texte); border-color: var(--bordure);
+  }
+  .btn-outline:hover { border-color: var(--bleu-elec-clair); background: rgba(31,107,255,.08); transform: translateY(-3px); }
+  .btn-whatsapp { background: #128c4a; color: #fff; }
+  .btn-whatsapp:hover { background: #16a85a; transform: translateY(-3px); }
+  .btn-block { width: 100%; }
+
+  /* ---------- Navigation ---------- */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 0; transition: all .35s ease;
+  }
+  header.scrolled {
+    background: rgba(5, 7, 13, .85); backdrop-filter: blur(14px);
+    padding: 12px 0; border-bottom: 1px solid var(--bordure);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.35rem; letter-spacing: .5px; }
+  .logo-mark {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--bleu-elec), #0a2a6e);
+    display: grid; place-items: center; font-size: .95rem; color: #fff;
+    box-shadow: 0 0 20px rgba(31,107,255,.5);
+  }
+  .logo span { color: var(--bleu-elec-clair); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { color: var(--texte-doux); font-size: .95rem; transition: color .25s; }
+  .nav-links a:hover { color: #fff; }
+  .burger {
+    display: none; background: none; border: none; color: #fff; font-size: 1.6rem; cursor: pointer;
+  }
+  .nav-cta { padding: 10px 20px; font-size: .9rem; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding-top: 120px; overflow: hidden;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(31,107,255,.28), transparent 45%),
+      radial-gradient(circle at 10% 80%, rgba(10,21,48,.9), transparent 50%),
+      linear-gradient(180deg, var(--noir), var(--bleu-nuit));
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(79,163,255,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,163,255,.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+    animation: drift 30s linear infinite;
+  }
+  @keyframes drift { to { background-position: 60px 60px; } }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: center; position: relative; }
+  .eyebrow {
+    display: inline-block; padding: 8px 16px; border-radius: 999px;
+    border: 1px solid var(--bordure); background: var(--verre);
+    font-size: .82rem; letter-spacing: 2px; color: var(--bleu-elec-clair);
+    margin-bottom: 22px; text-transform: uppercase;
+  }
+  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); margin-bottom: 20px; }
+  .gradient-text {
+    background: linear-gradient(120deg, #fff 0%, var(--bleu-elec-clair) 50%, var(--bleu-elec) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p.sub { font-size: 1.1rem; color: var(--texte-doux); max-width: 560px; margin-bottom: 34px; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+  .tagline {
+    margin-top: 40px; font-size: .85rem; letter-spacing: 4px; color: var(--texte-doux); text-transform: uppercase;
+  }
+  .tagline b { color: #fff; font-weight: 600; }
+
+  /* Visuel hero : maquette de projet */
+  .hero-visual { position: relative; animation: float 6s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+  .mockup {
+    border-radius: 22px; overflow: hidden;
+    border: 1px solid var(--bordure);
+    background: linear-gradient(160deg, #0d1d42, #060b1a);
+    box-shadow: var(--ombre);
+  }
+  .mockup-bar {
+    display: flex; gap: 7px; padding: 12px 16px; background: rgba(255,255,255,.03);
+    border-bottom: 1px solid var(--bordure);
+  }
+  .mockup-bar i { width: 10px; height: 10px; border-radius: 50%; background: #2a3c6b; display: block; }
+  .mockup-body { padding: 22px; }
+  .building-svg { width: 100%; height: auto; }
+  .demo-label {
+    position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%);
+    background: var(--bleu-elec); color: #fff; font-size: .75rem; padding: 6px 14px;
+    border-radius: 999px; white-space: nowrap; box-shadow: 0 8px 20px rgba(31,107,255,.4);
+  }
+  .floating-badge {
+    position: absolute; top: 20px; right: -20px; background: var(--verre);
+    backdrop-filter: blur(10px); border: 1px solid var(--bordure);
+    border-radius: 14px; padding: 12px 16px; font-size: .85rem;
+    animation: float 5s ease-in-out infinite reverse;
+  }
+  .floating-badge strong { color: var(--bleu-elec-clair); display: block; font-size: .95rem; }
+
+  /* ---------- Titres de section ---------- */
+  .section-head { text-align: center; max-width: 720px; margin: 0 auto 60px; }
+  .section-head .eyebrow { margin-bottom: 16px; }
+  .section-head h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); margin-bottom: 16px; }
+  .section-head p { color: var(--texte-doux); }
+
+  /* ---------- Services ---------- */
+  .services { background: linear-gradient(180deg, var(--noir), #070c1c); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card {
+    background: var(--verre); border: 1px solid var(--bordure); border-radius: var(--rayon);
+    padding: 34px 28px; transition: all .4s ease; position: relative; overflow: hidden;
+  }
+  .card::before {
+    content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .4s;
+    background: radial-gradient(circle at top right, rgba(31,107,255,.25), transparent 60%);
+  }
+  .card:hover { transform: translateY(-8px); border-color: var(--bleu-elec); box-shadow: var(--ombre); }
+  .card:hover::before { opacity: 1; }
+  .card > * { position: relative; }
+  .icon {
+    width: 56px; height: 56px; border-radius: 14px; display: grid; place-items: center;
+    background: linear-gradient(135deg, rgba(31,107,255,.3), rgba(79,163,255,.08));
+    border: 1px solid var(--bordure); font-size: 1.5rem; margin-bottom: 20px;
+  }
+  .card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+  .card p { color: var(--texte-doux); font-size: .95rem; }
+  .card .num {
+    position: absolute; top: 20px; right: 24px; font-size: 2.4rem; font-weight: 800;
+    color: rgba(79,163,255,.1);
+  }
+
+  /* ---------- Projet de démonstration ---------- */
+  .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+  .showcase-visual .mockup { transform: perspective(1200px) rotateY(-6deg); transition: transform .6s ease; }
+  .showcase-visual:hover .mockup { transform: perspective(1200px) rotateY(0deg); }
+  .showcase-text h2 { font-size: clamp(1.8rem, 3.5vw, 2.5rem); margin-bottom: 18px; }
+  .showcase-text p { color: var(--texte-doux); margin-bottom: 16px; }
+  .demo-tag {
+    display: inline-block; margin: 6px 0 22px; padding: 6px 14px; border-radius: 8px;
+    background: rgba(255, 190, 60, .1); border: 1px dashed rgba(255,190,60,.5);
+    color: #ffd27a; font-size: .85rem;
+  }
+  .checklist { list-style: none; margin: 22px 0 30px; display: grid; gap: 12px; }
+  .checklist li { display: flex; gap: 12px; color: var(--texte); }
+  .checklist li::before {
+    content: "✓"; flex: 0 0 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--bleu-elec); color: #fff; font-size: .8rem; font-weight: 700;
+  }
+  .project-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+  .tab {
+    padding: 8px 16px; border-radius: 999px; font-size: .85rem; cursor: pointer;
+    background: transparent; color: var(--texte-doux); border: 1px solid var(--bordure);
+    font-family: inherit; transition: all .25s;
+  }
+  .tab.active, .tab:hover { background: var(--bleu-elec); color: #fff; border-color: var(--bleu-elec); }
+  .project-panel { display: none; animation: fade .5s ease; }
+  .project-panel.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .project-panel h4 { font-size: 1.05rem; margin-bottom: 6px; }
+  .project-panel p { font-size: .92rem; color: var(--texte-doux); }
+  .project-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 14px; }
+  .project-stats div {
+    padding: 12px; border-radius: 12px; background: rgba(255,255,255,.03); border: 1px solid var(--bordure);
+    font-size: .85rem; color: var(--texte-doux);
+  }
+  .project-stats div b { display: block; color: #fff; font-size: .95rem; }
+
+  /* ---------- Offre ---------- */
+  .offer { background: radial-gradient(ellipse at center, var(--bleu-nuit-2), var(--noir) 70%); }
+  .offer-card {
+    max-width: 760px; margin: 0 auto; padding: 56px 50px; text-align: center; border-radius: 26px;
+    border: 1px solid var(--bleu-elec); background: linear-gradient(160deg, rgba(31,107,255,.12), rgba(5,7,13,.6));
+    box-shadow: 0 0 80px rgba(31,107,255,.2); position: relative;
+  }
+  .price { font-size: clamp(2.6rem, 6vw, 4rem); font-weight: 800; margin: 14px 0 6px; }
+  .price small { font-size: 1.1rem; color: var(--texte-doux); font-weight: 500; margin-left: 6px; }
+  .offer-card .lead { color: var(--texte-doux); margin-bottom: 28px; }
+  .offer-list { list-style: none; text-align: left; display: grid; gap: 12px; margin: 0 auto 28px; max-width: 480px; }
+  .offer-list li { display: flex; gap: 12px; }
+  .offer-list li::before { content: "◆"; color: var(--bleu-elec-clair); }
+  .disclaimer {
+    margin-top: 26px; font-size: .82rem; color: var(--texte-doux); line-height: 1.6;
+    border-top: 1px solid var(--bordure); padding-top: 20px;
+  }
+  .ribbon {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--bleu-elec), var(--bleu-elec-clair));
+    padding: 6px 18px; border-radius: 999px; font-size: .8rem; font-weight: 700; white-space: nowrap;
+  }
+
+  /* ---------- Process ---------- */
+  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; position: relative; }
+  .step { text-align: center; padding: 10px; }
+  .step .circle {
+    width: 70px; height: 70px; margin: 0 auto 18px; border-radius: 50%;
+    display: grid; place-items: center; font-weight: 800; font-size: 1.3rem;
+    background: var(--bleu-nuit-2); border: 2px solid var(--bleu-elec); color: var(--bleu-elec-clair);
+    box-shadow: 0 0 25px rgba(31,107,255,.3);
+  }
+  .step h3 { font-size: 1.05rem; margin-bottom: 8px; }
+  .step p { color: var(--texte-doux); font-size: .92rem; }
+
+  /* ---------- Contact ---------- */
+  .contact { background: linear-gradient(180deg, #070c1c, var(--bleu-nuit)); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px; align-items: start; }
+  .contact-info h2 { font-size: clamp(1.8rem, 3.5vw, 2.5rem); margin-bottom: 16px; }
+  .contact-info > p { color: var(--texte-doux); margin-bottom: 28px; }
+  .contact-item {
+    display: flex; gap: 16px; align-items: center; padding: 18px; margin-bottom: 14px;
+    border-radius: 14px; background: var(--verre); border: 1px solid var(--bordure);
+  }
+  .contact-item .icon { margin: 0; flex-shrink: 0; width: 48px; height: 48px; font-size: 1.2rem; }
+  .contact-item small { color: var(--texte-doux); display: block; font-size: .8rem; }
+  .contact-item strong { font-size: 1.05rem; word-break: break-word; }
+  .contact-actions { display: grid; gap: 12px; margin-top: 24px; }
+  .contact-actions .btn { width: 100%; }
+
+  form.form {
+    background: var(--verre); border: 1px solid var(--bordure); border-radius: 22px; padding: 38px;
+    backdrop-filter: blur(10px);
+  }
+  form.form h3 { font-size: 1.4rem; margin-bottom: 6px; }
+  form.form > p { color: var(--texte-doux); font-size: .9rem; margin-bottom: 24px; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field.full { grid-column: 1 / -1; }
+  .field label { font-size: .85rem; color: var(--texte-doux); }
+  .field label span { color: var(--bleu-elec-clair); }
+  .field input, .field select, .field textarea {
+    background: rgba(5,7,13,.7); border: 1px solid var(--bordure); border-radius: 12px;
+    padding: 13px 16px; color: var(--texte); font-family: inherit; font-size: .95rem;
+    transition: border-color .25s, box-shadow .25s; width: 100%;
+  }
+  .field select option { background: var(--bleu-nuit); }
+  .field textarea { resize: vertical; min-height: 110px; }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--bleu-elec); box-shadow: 0 0 0 4px rgba(31,107,255,.2);
+  }
+  .field.error input, .field.error select, .field.error textarea { border-color: #ff6b6b; }
+  .err-msg { color: #ff8a8a; font-size: .78rem; min-height: 0; display: none; }
+  .field.error .err-msg { display: block; }
+  .form-note {
+    margin-top: 18px; padding: 14px 16px; border-radius: 12px; font-size: .88rem; display: none;
+    background: rgba(255,190,60,.08); border: 1px solid rgba(255,190,60,.35); color: #ffe0a3;
+  }
+  .form-note.show { display: block; animation: fade .4s ease; }
+  .form form-submit { margin-top: 22px; }
+
+  /* ---------- Footer ---------- */
+  footer { padding: 40px 0; border-top: 1px solid var(--bordure); background: var(--noir); }
+  .foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .foot p { color: var(--texte-doux); font-size: .88rem; }
+
+  /* ---------- Bouton WhatsApp flottant ---------- */
+  .wa-float {
+    position: fixed; bottom: 22px; right: 22px; z-index: 90; width: 58px; height: 58px;
+    border-radius: 50%; background: #25d366; display: grid; place-items: center;
+    box-shadow: 0 10px 30px rgba(37,211,102,.45); animation: pulse 2.4s infinite;
+    transition: transform .3s;
+  }
+  .wa-float:hover { transform: scale(1.1); }
+  .wa-float svg { width: 30px; height: 30px; fill: #fff; }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37,211,102,.55); }
+    70% { box-shadow: 0 0 0 18px rgba(37,211,102,0); }
+    100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+  }
+
+  /* ---------- Révélation au scroll ---------- */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; } .d4 { transition-delay: .4s; }
+
+  /* ---------- Menu mobile ---------- */
+  .mobile-menu {
+    position: fixed; inset: 0; background: rgba(5,7,13,.97); z-index: 200;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px;
+    opacity: 0; pointer-events: none; transition: opacity .3s;
+  }
+  .mobile-menu.open { opacity: 1; pointer-events: auto; }
+  .mobile-menu a { font-size: 1.3rem; font-weight: 600; }
+  .mobile-menu .close { position: absolute; top: 18px; right: 22px; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1024px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .process-grid { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
+  }
+  @media (max-width: 860px) {
+    section { padding: 70px 0; }
+    .hero-grid, .showcase-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero { min-height: auto; padding-bottom: 80px; }
+    .hero-visual { max-width: 520px; margin: 0 auto; }
+    .floating-badge { right: 10px; }
+    .nav-links, .nav-cta { display: none; }
+    .burger { display: block; }
+    .showcase-visual .mockup { transform: none; }
+  }
+  @media (max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    form.form { padding: 26px 20px; }
+    .offer-card { padding: 44px 22px; }
+    .hero-actions .btn { width: 100%; }
+    .project-stats { grid-template-columns: 1fr; }
+    .foot { flex-direction: column; text-align: center; }
+    .wa-float { width: 52px; height: 52px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAVIGATION ============ -->
+<header id="header">
+  <div class="container nav">
+    <a href="#accueil" class="logo">
+      <div class="logo-mark">AY</div>
+      <div>AY<span>DIGITAL</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projet">Projet démo</a></li>
+      <li><a href="#offre">Offre</a></li>
+      <li><a href="#processus">Processus</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="btn btn-primary nav-cta">Demander une proposition</a>
+    <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu">☰</button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close" id="closeMenu" aria-label="Fermer le menu">×</button>
+  <a href="#services">Services</a>
+  <a href="#projet">Projet démo</a>
+  <a href="#offre">Offre</a>
+  <a href="#processus">Processus</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="accueil">
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow reveal">Agence marketing digital • IA • Automatisation</span>
+      <h1 class="reveal d1">Vos projets immobiliers méritent <span class="gradient-text">plus de visibilité.</span></h1>
+      <p class="sub reveal d2">Attirez l'attention sur vos projets, présentez vos biens de manière professionnelle et organisez vos demandes clients grâce aux solutions digitales d'AY Digital.</p>
+      <div class="hero-actions reveal d3">
+        <a href="#contact" class="btn btn-primary">Demander une proposition</a>
+        <a href="#services" class="btn btn-outline">Découvrir nos services</a>
+      </div>
+      <p class="tagline reveal d4"><b>AI</b> • MARKETING • <b>GROWTH</b></p>
+    </div>
+
+    <div class="hero-visual reveal d2">
+      <div class="mockup">
+        <div class="mockup-bar"><i></i><i></i><i></i></div>
+        <div class="mockup-body">
+          <svg class="building-svg" viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" aria-label="Illustration d'un immeuble moderne">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#0d2a66"/><stop offset="1" stop-color="#05070d"/>
+              </linearGradient>
+              <linearGradient id="bldg" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#1b3a8a"/><stop offset="1" stop-color="#0a1530"/>
+              </linearGradient>
+            </defs>
+            <rect width="480" height="300" fill="url(#sky)"/>
+            <circle cx="390" cy="60" r="26" fill="#4fa3ff" opacity=".25"/>
+            <rect x="40" y="110" width="120" height="190" fill="url(#bldg)" stroke="#1f6bff" stroke-opacity=".4"/>
+            <rect x="180" y="60" width="130" height="240" fill="url(#bldg)" stroke="#1f6bff" stroke-opacity=".4"/>
+            <rect x="330" y="130" width="110" height="170" fill="url(#bldg)" stroke="#1f6bff" stroke-opacity=".4"/>
+            <g fill="#4fa3ff" opacity=".85">
+              <rect x="55" y="130" width="18" height="14"/><rect x="85" y="130" width="18" height="14"/><rect x="115" y="130" width="18" height="14"/>
+              <rect x="55" y="160" width="18" height="14"/><rect x="85" y="160" width="18" height="14"/><rect x="115" y="160" width="18" height="14"/>
+              <rect x="55" y="190" width="18" height="14"/><rect x="85" y="190" width="18" height="14"/><rect x="115" y="190" width="18" height="14"/>
+              <rect x="195" y="80" width="18" height="14"/><rect x="225" y="80" width="18" height="14"/><rect x="255" y="80" width="18" height="14"/><rect x="285" y="80" width="18" height="14"/>
+              <rect x="195" y="110" width="18" height="14"/><rect x="225" y="110" width="18" height="14"/><rect x="255" y="110" width="18" height="14"/><rect x="285" y="110" width="18" height="14"/>
+              <rect x="195" y="140" width="18" height="14"/><rect x="225" y="140" width="18" height="14"/><rect x="255" y="140" width="18" height="14"/><rect x="285" y="140" width="18" height="14"/>
+              <rect x="345" y="150" width="18" height="14"/><rect x="375" y="150" width="18" height="14"/><rect x="345" y="180" width="18" height="14"/><rect x="375" y="180" width="18" height="14"/>
+            </g>
+            <rect x="0" y="300" width="480" height="0" fill="#000"/>
+            <rect x="0" y="280" width="480" height="20" fill="#05070d"/>
+            <line x1="0" y1="282" x2="480" y2="282" stroke="#4fa3ff" stroke-opacity=".5"/>
+            <path d="M 30 260 L 450 260" stroke="#4fa3ff" stroke-dasharray="6 8" opacity=".4"/>
+          </svg>
+        </div>
+      </div>
+      <span class="demo-label">Concept de démonstration — projet fictif</span>
+      <div class="floating-badge">
+        <strong>Présentation de projet</strong>
+        Pages web et visuels pour vos biens
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Nos services</span>
+      <h2>Une solution complète pour <span class="gradient-text">vendre vos projets</span></h2>
+      <p>De la création publicitaire à l'organisation de vos demandes clients, AY Digital couvre les besoins marketing des acteurs de la construction et de l'immobilier.</p>
+    </div>
+
+    <div class="services-grid">
+      <article class="card reveal">
+        <span class="num">01</span>
+        <div class="icon">📣</div>
+        <h3>Marketing immobilier</h3>
+        <p>Créations publicitaires et contenus pour les réseaux sociaux, adaptés à vos programmes, appartements et terrains.</p>
+      </article>
+
+      <article class="card reveal d1">
+        <span class="num">02</span>
+        <div class="icon">🏢</div>
+        <h3>Présentation de projets</h3>
+        <p>Pages web dédiées à vos projets immobiliers, appartements et terrains, pour présenter vos biens de façon claire et professionnelle.</p>
+      </article>
+
+      <article class="card reveal d2">
+        <span class="num">03</span>
+        <div class="icon">🎯</div>
+        <h3>Génération de prospects</h3>
+        <p>Organisation des demandes des clients intéressés, pour que chaque contact soit identifié et suivi.</p>
+      </article>
+
+      <article class="card reveal">
+        <span class="num">04</span>
+        <div class="icon">⚙️</div>
+        <h3>CRM & automatisation</h3>
+        <p>Suivi des contacts, organisation des relances et automatisation des tâches répétitives de votre équipe commerciale.</p>
+      </article>
+
+      <article class="card reveal d1">
+        <span class="num">05</span>
+        <div class="icon">🎬</div>
+        <h3>Contenu vidéo</h3>
+        <p>Concepts et scripts de vidéos promotionnelles pour mettre en valeur vos projets et votre savoir-faire.</p>
+      </article>
+
+      <article class="card reveal d2">
+        <span class="num">06</span>
+        <div class="icon">🌐</div>
+        <h3>Présence digitale</h3>
+        <p>Une présentation professionnelle de votre entreprise sur Internet, pour inspirer confiance dès le premier regard.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJET DE DÉMONSTRATION ============ -->
+<section id="projet">
+  <div class="container showcase-grid">
+    <div class="showcase-visual reveal">
+      <div class="mockup">
+        <div class="mockup-bar"><i></i><i></i><i></i></div>
+        <div class="mockup-body">
+          <svg viewBox="0 0 480 300" class="building-svg" xmlns="http://www.w3.org/2000/svg" aria-label="Plan de terrains">
+            <rect width="480" height="300" fill="#07102a"/>
+            <g fill="none" stroke="#4fa3ff" stroke-opacity=".5" stroke-width="1.5">
+              <rect x="40" y="40" width="200" height="110" rx="6"/>
+              <rect x="250" y="40" width="190" height="110" rx="6"/>
+              <rect x="40" y="165" width="130" height="95" rx="6"/>
+              <rect x="185" y="165" width="130" height="95" rx="6"/>
+              <rect x="330" y="165" width="110" height="95" rx="6"/>
+            </g>
+            <g fill="#1f6bff" fill-opacity=".18">
+              <rect x="40" y="40" width="200" height="110" rx="6"/>
+              <rect x="330" y="165" width="110" height="95" rx="6"/>
+            </g>
+            <g fill="#e8eefc" font-family="Segoe UI, Arial" font-size="13" text-anchor="middle">
+              <text x="140" y="98">Lot A — 1 200 m²</text>
+              <text x="345" y="98">Lot B — 950 m²</text>
+              <text x="105" y="216">Lot C</text>
+              <text x="250" y="216">Lot D</text>
+              <text x="385" y="216">Lot E — vendu</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <span class="demo-label" style="position:static;display:inline-block;margin-top:24px;transform:none;">Concept de démonstration — projet fictif</span>
+    </div>
+
+    <div class="showcase-text reveal d1">
+      <span class="eyebrow">Exemple de présentation</span>
+      <h2>Présentez vos projets <span class="gradient-text">comme il se doit</span></h2>
+      <p>Un plan clair, des fiches détaillées et une demande de contact directe : voici la manière dont un projet peut être mis en valeur en ligne.</p>
+      <span class="demo-tag">Concept de démonstration — projet fictif. Les lots, surfaces et informations ci-dessous sont illustratifs.</span>
+
+      <div class="project-tabs" role="tablist">
+        <button class="tab active" data-tab="p1">Terrains</button>
+        <button class="tab" data-tab="p2">Appartements</button>
+        <button class="tab" data-tab="p3">Résidence</button>
+      </div>
+
+      <div class="project-panel active" id="p1">
+        <h4>Lotissement démonstration</h4>
+        <p>Terrains viabilisés, présentés avec plan, surface et disponibilité pour chaque lot.</p>
+        <div class="project-stats">
+          <div>Surfaces<b>À partir de 950 m²</b></div>
+          <div>Disponibilité<b>Affichée par lot</b></div>
+        </div>
+      </div>
+      <div class="project-panel" id="p2">
+        <h4>Immeuble d'appartements démonstration</h4>
+        <p>Fiches par type d'appartement : surface, étage, orientation et plan.</p>
+        <div class="project-stats">
+          <div>Types<b>Studio à 4 pièces</b></div>
+          <div>Présentation<b>Plans et fiches</b></div>
+        </div>
+      </div>
+      <div class="project-panel" id="p3">
+        <h4>Résidence démonstration</h4>
+        <p>Une page unique qui réunit visuels, équipements, localisation et formulaire de demande.</p>
+        <div class="project-stats">
+          <div>Contenu<b>Visuels, plans, descriptif</b></div>
+          <div>Demande<b>Formulaire intégré</b></div>
+        </div>
+      </div>
+
+      <ul class="checklist" style="margin-top:28px;">
+        <li>Présentation claire de chaque bien ou lot</li>
+        <li>Demande de contact accessible sur chaque page</li>
+        <li>Version adaptée au téléphone</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OFFRE ============ -->
+<section class="offer" id="offre">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Offre de lancement</span>
+      <h2>Démarrez votre visibilité <span class="gradient-text">dès aujourd'hui</span></h2>
+      <p>Une offre de démarrage adaptée à vos besoins et à la taille de votre projet.</p>
+    </div>
+
+    <div class="offer-card reveal">
+      <span class="ribbon">Offre de démarrage</span>
+      <p class="lead">À partir de</p>
+      <div class="price">600 DH<small>/ démarrage</small></div>
+      <p class="lead">Selon vos besoins. Une offre peut comprendre :</p>
+      <ul class="offer-list">
+        <li>8 créations publicitaires</li>
+        <li>Textes marketing en français</li>
+        <li>Présentation professionnelle de votre projet</li>
+        <li>Organisation des demandes entrantes</li>
+      </ul>
+      <div class="hero-actions" style="justify-content:center;">
+        <a href="#contact" class="btn btn-primary">Demander une proposition</a>
+      </div>
+      <p class="disclaimer">
+        Le budget publicitaire (diffusion payante) et les prises de photos sur le terrain ne sont pas inclus dans cette offre.
+        AY Digital ne garantit aucun nombre de clients, de prospects ou de ventes. Le contenu final est établi après échange sur vos besoins.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESSUS ============ -->
+<section id="processus">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Processus</span>
+      <h2>Comment <span class="gradient-text">nous travaillons</span></h2>
+      <p>Quatre étapes simples pour passer d'un projet à une présence digitale claire.</p>
+    </div>
+
+    <div class="process-grid">
+      <div class="step reveal">
+        <div class="circle">1</div>
+        <h3>Échange</h3>
+        <p>Nous découvrons votre projet, votre public et vos objectifs.</p>
+      </div>
+      <div class="step reveal d1">
+        <div class="circle">2</div>
+        <h3>Conception</h3>
+        <p>Nous préparons les visuels, les textes et la présentation de vos biens.</p>
+      </div>
+      <div class="step reveal d2">
+        <div class="circle">3</div>
+        <h3>Validation</h3>
+        <p>Vous relisez et validez chaque élément avant publication.</p>
+      </div>
+      <div class="step reveal d3">
+        <div class="circle">4</div>
+        <h3>Suivi</h3>
+        <p>Les demandes sont organisées pour un suivi clair de vos prospects.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="container contact-grid">
+    <div class="contact-info reveal">
+      <span class="eyebrow">Contact</span>
+      <h2>Parlons de <span class="gradient-text">votre projet</span></h2>
+      <p>Décrivez-nous votre activité ou votre programme immobilier. Nous vous répondrons pour définir la meilleure proposition.</p>
+
+      <div class="contact-item">
+        <div class="icon">📞</div>
+        <div><small>Téléphone</small><strong>0715749574</strong></div>
+      </div>
+      <div class="contact-item">
+        <div class="icon">✉️</div>
+        <div><small>E-mail</small><strong>aydigital992@gmail.com</strong></div>
+      </div>
+
+      <div class="contact-actions">
+        <a href="tel:+212715749574" class="btn btn-primary">📞 Appeler AY Digital</a>
+        <a href="mailto:aydigital992@gmail.com?subject=Demande%20de%20proposition%20-%20AY%20Digital" class="btn btn-outline">✉️ Envoyer un e-mail</a>
+        <a href="https://wa.me/212715749574?text=Bonjour%20AY%20Digital%2C%20je%20souhaite%20demander%20une%20proposition." target="_blank" rel="noopener" class="btn btn-whatsapp">💬 Contacter sur WhatsApp</a>
+      </div>
+    </div>
+
+    <form class="form reveal d1" id="contactForm" novalidate>
+      <h3>Demander une proposition</h3>
+      <p>Formulaire de démonstration. Les informations ne sont ni enregistrées ni envoyées pour le moment.</p>
+
+      <div class="form-grid">
+        <div class="field" data-field>
+          <label for="entreprise">Nom de l'entreprise <span>*</span></label>
+          <input type="text" id="entreprise" name="entreprise" placeholder="Ex. Société de construction X">
+          <small class="err-msg">Veuillez indiquer le nom de l'entreprise.</small>
+        </div>
+        <div class="field" data-field>
+          <label for="responsable">Nom du responsable <span>*</span></label>
+          <input type="text" id="responsable" name="responsable" placeholder="Prénom et nom">
+          <small class="err-msg">Veuillez indiquer le nom du responsable.</small>
+        </div>
+        <div class="field" data-field>
+          <label for="telephone">Numéro de téléphone <span>*</span></label>
+          <input type="tel" id="telephone" name="telephone" placeholder="06 xx xx xx xx">
+          <small class="err-msg">Numéro invalide (au moins 9 chiffres).</small>
+        </div>
+        <div class="field" data-field>
+          <label for="typeProjet">Type de projet <span>*</span></label>
+          <select id="typeProjet" name="typeProjet">
+            <option value="">Choisissez…</option>
+            <option>Promoteur immobilier</option>
+            <option>Entreprise de construction</option>
+            <option>Agence immobilière</option>
+            <option>Vente de terrains</option>
+            <option>Autre</option>
+          </select>
+          <small class="err-msg">Veuillez choisir un type de projet.</small>
+        </div>
+        <div class="field full" data-field>
+          <label for="service">Service recherché <span>*</span></label>
+          <select id="service" name="service">
+            <option value="">Choisissez…</option>
+            <option>Marketing immobilier</option>
+            <option>Présentation de projets</option>
+            <option>Génération de prospects</option>
+            <option>CRM et automatisation</option>
+            <option>Contenu vidéo</option>
+            <option>Présence digitale</option>
+            <option>Offre de lancement</option>
+          </select>
+          <small class="err-msg">Veuillez choisir un service.</small>
+        </div>
+        <div class="field full" data-field>
+          <label for="message">Message <span>*</span></label>
+          <textarea id="message" name="message" placeholder="Décrivez brièvement votre projet et vos besoins…"></textarea>
+          <small class="err-msg">Veuillez écrire un message (10 caractères minimum).</small>
+        </div>
+      </div>
+
+      <div class="form-submit" style="margin-top:22px;">
+        <button type="submit" class="btn btn-primary btn-block">Envoyer ma demande</button>
+      </div>
+
+      <div class="form-note" id="formNote" role="status"></div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container foot">
+    <a href="#accueil" class="logo">
+      <div class="logo-mark">AY</div>
+      <div>AY<span>DIGITAL</span></div>
+    </a>
+    <p>AI • MARKETING • GROWTH</p>
+    <p>© <span id="year"></span> AY Digital. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<!-- Bouton WhatsApp flottant -->
+<a href="https://wa.me/212715749574?text=Bonjour%20AY%20Digital%2C%20je%20souhaite%20demander%20une%20proposition." target="_blank" rel="noopener" class="wa-float" aria-label="Contacter sur WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.5 5.9L0 24l6.4-1.7a11.9 11.9 0 0 0 5.6 1.4c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.9 9.9 0 0 1-1.5-5.2C2.1 6.4 6.5 2 12 2c2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.5-4.5 9.9-9.9 9.9zm5.4-7.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4z"/></svg>
+</a>
+
+<script>
+  // Année dynamique
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // En-tête qui se transforme au scroll
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // Menu mobile
+  const mobileMenu = document.getElementById('mobileMenu');
+  document.getElementById('burgerBtn').addEventListener('click', () => mobileMenu.classList.add('open'));
+  document.getElementById('closeMenu').addEventListener('click', () => mobileMenu.classList.remove('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // Animations au scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Onglets de projet de démonstration
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.project-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Formulaire de démonstration (validation uniquement, aucun envoi)
+  const form = document.getElementById('contactForm');
+  const note = document.getElementById('formNote');
+
+  function setError(field, isError) {
+    field.classList.toggle('error', isError);
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    let valid = true;
+
+    const checks = [
+      { id: 'entreprise',  test: v => v.trim().length >= 2 },
+      { id: 'responsable', test: v => v.trim().length >= 2 },
+      { id: 'telephone',   test: v => v.replace(/\D/g, '').length >= 9 },
+      { id: 'typeProjet',  test: v => v !== '' },
+      { id: 'service',     test: v => v !== '' },
+      { id: 'message',     test: v => v.trim().length >= 10 }
+    ];
+
+    checks.forEach(c => {
+      const input = document.getElementById(c.id);
+      const ok = c.test(input.value);
+      setError(input.closest('[data-field]'), !ok);
+      if (!ok) valid = false;
+    });
+
+    note.classList.remove('show');
+    if (!valid) {
+      note.textContent = 'Merci de compléter les champs signalés.';
+      note.style.display = 'block';
+      note.classList.add('show');
+      return;
+    }
+
+    note.textContent = 'Démonstration : votre demande n\'a pas été envoyée ni enregistrée. Pour une vraie demande, contactez AY Digital par téléphone, e-mail ou WhatsApp.';
+    note.classList.add('show');
+    form.reset();
+  });
+
+  // Retirer l'erreur dès que l'utilisateur corrige
+  form.querySelectorAll('input, select, textarea').forEach(el => {
+    el.addEventListener('input', () => setError(el.closest('[data-field]'), false));
+    el.addEventListener('change', () => setError(el.closest('[data-field]'), false));
+  });
+</script>
+</body>
+</html>
